@@ -4,24 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AccesoDatos;
+using LogicaNegocios.Commands;
+using LogicaNegocios.Entities;
 
 namespace LogicaNegocios
 {
     public class Class1
     {
-        public string ObtenerFecha()
+        public string ObtenerClientePorNombre(string nombre)
         {
-            string connectionstring =
+            string connectionString =
                     "Server=localhost;" +
-                    "Database=PruebaDB;" +
+                    "Database=VentasDB;" +
                     "Trusted_Connection=True;" +
                     "TrustServerCertificate=true;";
-
-            SQLServer sql = new SQLServer(connectionstring);
-
-            //string fecha = sql.Scalar<string>("SELECT CONVERT(varchar,GETDATE())");
-            string fecha = sql.Scalar<string>("SELECT [Name] FROM [Users] WHERE [Id]=1");
-            return fecha;
+            Cliente? cliente = new ClienteCommand(connectionString)
+                .ObtenerClientePorNombre(nombre);
+            if (cliente == null)
+            {
+                return "Cliente no encontrado";
+            }
+            return $"Cliente: {cliente.Id} {cliente.Nombre}";
         }
     }
 }
