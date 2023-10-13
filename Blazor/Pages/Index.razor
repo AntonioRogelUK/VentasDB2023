@@ -1,0 +1,38 @@
+﻿@page "/"
+@using LogicaNegocios.Entities;
+@using LogicaNegocios;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+<table class="table text-center table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+            @foreach (Cliente cliente in clientes)
+            {
+            <tr>
+                <td>@cliente.Id</td>
+                <td>@cliente.Codigo</td>
+                <td>@cliente.Nombre</td>
+            </tr>
+            }
+    </tbody>
+</table>
+
+@code
+{
+    List<Cliente> clientes = new List<Cliente>();
+    Class1 clase = new Class1();
+    protected override void OnInitialized()
+    {
+        clientes = clase.ObtenerClientesPorNombre("Juan");
+        base.OnInitialized();
+    }
+}
