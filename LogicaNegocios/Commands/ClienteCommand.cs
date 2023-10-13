@@ -44,5 +44,33 @@ namespace LogicaNegocios.Commands
                 throw;
             }
         }
+
+        public List<Cliente>? ObtenerClientesPorNombre(string nombre)
+        {
+            try
+            {
+                StringBuilder query = new StringBuilder();
+                query.Append("SELECT");
+                query.Append(" [Id]");
+                query.Append(",[Codigo]");
+                query.Append(",[Nombre]");
+                query.Append(" FROM [Clientes]");
+                query.Append(" WHERE [Nombre] LIKE '%' + @Nombre + '%'");
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@Nombre", nombre)
+                };
+
+                SQLServer sql = new SQLServer(_connectionString);
+                var clientes = sql.ReaderList<Cliente>(query.ToString(), parameters);
+                return clientes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
