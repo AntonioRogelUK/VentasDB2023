@@ -27,7 +27,7 @@ namespace LogicaNegocios
             return $"Cliente: {cliente.Id} {cliente.Nombre}";
         }
 
-        public List<string> ObtenerClientesPorNombre(string nombre)
+        public List<Cliente> ObtenerClientesPorNombre(string nombre)
         {
             string connectionString =
                     "Server=localhost;" +
@@ -37,7 +37,7 @@ namespace LogicaNegocios
             var clientes = new ClienteCommand(connectionString)
                 .ObtenerClientesPorNombre(nombre);
 
-            List<string> clientesResult = new List<string>();
+            /*List<string> clientesResult = new List<string>();
 
             foreach (Cliente cliente in clientes)
             {
@@ -46,8 +46,8 @@ namespace LogicaNegocios
                     clientesResult.Add($"Cliente: {cliente.Id} {cliente.Nombre}");
                 }
             }
-
-            return clientesResult;
+            */
+            return clientes;
         }
     }
 }
