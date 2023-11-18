@@ -4,7 +4,8 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Cantidad de clientes @cantidadDeClientes</h1>
+<button class="btn btn-primary" @onclick="ObtenerCantidad">ObtenerCantidad</button>
 <table class="table text-center table-hover">
     <thead class="table-dark">
         <tr>
@@ -30,9 +31,21 @@
 {
     List<Cliente> clientes = new List<Cliente>();
     Class1 clase = new Class1();
+    int? cantidadDeClientes = 0;
     protected override void OnInitialized()
     {
         clientes = clase.ObtenerClientesPorNombre("Juan");
         base.OnInitialized();
+    }
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    cantidadDeClientes = await clase.ObtenerCantidadDeClientesAsync();
+    //    await base.OnInitializedAsync();
+    //}
+
+    private async Task ObtenerCantidad()
+    {
+        cantidadDeClientes = await clase.ObtenerCantidadDeClientesAsync();
     }
 }

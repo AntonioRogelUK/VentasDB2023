@@ -27,6 +27,22 @@ namespace LogicaNegocios
             return $"Cliente: {cliente.Id} {cliente.Nombre}";
         }
 
+        public async Task<int?> ObtenerCantidadDeClientesAsync()
+        {
+            string connectionString =
+                    "Server=localhost;" +
+                    "Database=VentasDB;" +
+                    "Trusted_Connection=True;" +
+                    "TrustServerCertificate=true;";
+            int? cantidadClientes = await new ClienteCommand(connectionString)
+                .ObtenerCantidadDeClientesAsync();
+            if (cantidadClientes == null)
+            {
+                throw new Exception("ERROR");//return "Cliente no encontrado";
+            }
+            return cantidadClientes;
+        }
+
         public List<Cliente> ObtenerClientesPorNombre(string nombre)
         {
             string connectionString =
