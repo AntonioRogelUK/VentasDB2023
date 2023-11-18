@@ -72,5 +72,24 @@ namespace LogicaNegocios.Commands
             }
         }
 
+        public async Task<int> ObtenerCantidadDeClientesAsync()
+        {
+            try
+            {
+                StringBuilder query = new StringBuilder();
+                query.Append("SELECT COUNT(*)");
+                query.Append(" FROM [Clientes]");
+
+                SQLServer sql = new SQLServer(_connectionString);
+                var clientes =await sql.ScalarAsync<int>(query.ToString())!;
+                return clientes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

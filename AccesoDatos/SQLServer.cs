@@ -51,6 +51,39 @@ namespace AccesoDatos
             }
         }
 
+        public async Task<T>? ScalarAsync<T>(string query, SqlParameter[]? parameters = null)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        try
+                        {
+                            await conn.OpenAsync();
+                            if (parameters != null)
+                            {
+                                cmd.Parameters.AddRange(parameters);
+                            }
+                            return (T)await cmd.ExecuteScalarAsync();
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public T? Reader<T>(string query, SqlParameter[]? parameters = null) where T : class, new()
         {
             try
